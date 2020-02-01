@@ -6,6 +6,7 @@ using System;
 public class GameLogic : MonoBehaviour
 {
     public GameObject BlockPrefab;
+    public GameObject GroundPrefab;
     public int BlockSpacing = 3;
     public Material GoodBlockMaterial;
     public Material BadBlockMaterial;
@@ -36,6 +37,12 @@ public class GameLogic : MonoBehaviour
         {
             var newBlock = Instantiate(BlockPrefab, GetBlockPosition(block), Quaternion.identity);
             newBlock.GetComponent<Renderer>().material = block.Type == 1 ? GoodBlockMaterial : BadBlockMaterial;
+        }
+
+
+        for (var i = 0; i < 30; i++)
+        {
+            Instantiate(GroundPrefab, new Vector3(0, -10, i * 1200), Quaternion.Euler(-90, 90, 0));
         }
     }
 
