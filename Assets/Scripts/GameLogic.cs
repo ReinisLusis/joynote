@@ -8,11 +8,14 @@ public class GameLogic : MonoBehaviour
     public int BlockSpacing = 3;
     private TrackView trackView;
     private List<NoteBlock> blocks;
+    MIDIToCSVReader refScript;
 
     void Start()
     {
-        trackView = new TrackView();
-        blocks = trackView.GetBlocks();
+        refScript = GetComponent<MIDIToCSVReader>();
+        // trackView = new TrackView();
+        blocks = refScript.GetBlocks();
+        Debug.Log(blocks.Count);
         foreach (var block in blocks)
         {
             Instantiate(BlockPrefab, GetBlockPosition(block), Quaternion.identity);
@@ -26,10 +29,10 @@ public class GameLogic : MonoBehaviour
         //   c d 
         // b   e 
         // a g f
-
+Debug.Log("pos " + block.Position + " time " + block.Time);
         int y = 0;
         int x = 0;
-        var blockPosition = block.Position;
+        var blockPosition = block.Position % 7;
 
         if (blockPosition < 2)
         {
