@@ -10,17 +10,21 @@ public class PlayerMovement : MonoBehaviour
     public float forwardSpeedModifier = 1;
     public float smooth = 5.0f;
     public float moveaway = 1.5f;
+    public GameObject GameRoot;
 
+    private UIManager uiManager;
     private Vector3 forwardVector;
-    
+
     void Update()
     {
+        uiManager = GameRoot.GetComponent<UIManager>();
+
         if (forwardVector != null)
         {
             transform.position = forwardVector;
         }
 
-        transform.position = new Vector3(Input.GetAxis("Horizontal") * moveaway, 
+        transform.position = new Vector3(Input.GetAxis("Horizontal") * moveaway,
             -Input.GetAxis("Vertical") * moveaway, transform.position.z);
 
         float tiltAroundZ = -Input.GetAxis("Horizontal") * moveaway;
@@ -33,10 +37,10 @@ public class PlayerMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other);
-        if (other.gameObject.tag == "Block")
+        Destroy(other.gameObject);
+        if (uiManager)
         {
-            Destroy(other.gameObject);
+            uiManager.UpdateScore(other.gameObject.tag == "Block");
         }
     }
 
