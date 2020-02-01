@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
 		goodTrack.Play();
 	}
 
-	public double GetAudioTime()
+	public float GetAudioTime()
 	{
 		return goodTrack.timeSamples / goodTrack.clip.frequency;
 	}

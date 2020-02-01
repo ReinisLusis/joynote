@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,8 @@ public class PlayerMovement : MonoBehaviour
     {
         var forwardVector = transform.forward * Time.deltaTime * forwardspeed;
         transform.position += forwardVector;
-        transform.position = new Vector3(Input.GetAxis("Horizontal") * moveaway, -Input.GetAxis("Vertical") * moveaway, transform.position.z);
+        transform.position = new Vector3(Input.GetAxis("Horizontal") * moveaway, 
+            -Input.GetAxis("Vertical") * moveaway, transform.position.z);
 
         float tiltAroundZ = -Input.GetAxis("Horizontal") * moveaway;
         float tiltAroundX = Input.GetAxis("Vertical") * moveaway;
@@ -31,6 +33,14 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
+    }
+
+    internal void UpdateForwardPosition(float time)
+    {
+        var forwardVector = transform.forward * time * Time.deltaTime;
+        transform.position += forwardVector;
+        Debug.Log(string.Format("t{0} dt{1}",time, Time.deltaTime));
+        //transform.position.Set(transform.position.x, transform.position.y, time);
     }
 }
 

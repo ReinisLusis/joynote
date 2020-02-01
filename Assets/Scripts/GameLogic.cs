@@ -9,25 +9,29 @@ public class GameLogic : MonoBehaviour
     public int BlockSpacing = 3;
     public Material GoodBlockMaterial;
     public Material BadBlockMaterial;
+    public GameObject PlayerGameObject;
+
     private TrackView trackView;
     private List<NoteBlock> blocks;
-    MIDIToCSVReader refScript;
+    private MIDIToCSVReader refScript;
 
-    DateTime startTime;
-    DateTime audioTime;
-    bool hasStartedAudio;
-
+    private DateTime startTime;
+    private DateTime audioTime;
+    private bool hasStartedAudio;
+    private AudioManager audioManager;
+    private PlayerMovement playerMovement;
     void Start()
     {
         refScript = GetComponent<MIDIToCSVReader>();
+        audioManager = GetComponent<AudioManager>();
+        playerMovement = PlayerGameObject.GetComponent<PlayerMovement>();
 
         startTime = DateTime.UtcNow;
         audioTime = startTime + TimeSpan.FromSeconds(3);
         hasStartedAudio = false;
 
-        // trackView = new TrackView();
         blocks = refScript.GetBlocks();
-        Debug.Log(blocks.Count);
+
         foreach (var block in blocks)
         {
             var newBlock = Instantiate(BlockPrefab, GetBlockPosition(block), Quaternion.identity);
@@ -35,26 +39,30 @@ public class GameLogic : MonoBehaviour
         }
     }
 
-    public double GetGameTime()
+    void Update()
+    {
+        var time = GetGameTime();
+        playerMovement.UpdateForwardPosition(time);
+    }
+
+    public float GetGameTime()
     {
         if (!hasStartedAudio)
         {
             var time = DateTime.UtcNow;
             if (time < audioTime)
             {
-                return (time - audioTime).TotalSeconds;
+                return Convert.ToSingle((time - audioTime).TotalSeconds);
             }
             else
             {
                 hasStartedAudio = true;
-                var audioManager = GetComponent<AudioManager>();
                 audioManager.StartAudio();
-                return 0.0;
+                return 0;
             }
         }
         else
         {
-            var audioManager = GetComponent<AudioManager>();
             return audioManager.GetAudioTime();
         }
     }
@@ -90,12 +98,6 @@ public class GameLogic : MonoBehaviour
         }
 
         return new Vector3(x, y, z);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
 }
