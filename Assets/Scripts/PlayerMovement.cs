@@ -46,8 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     internal void UpdateForwardPosition(float time)
     {
-        // consider transform.position = new Vector3(transform.position.x, transform.position.y, 100 * time);
-        forwardVector = transform.forward * forwardSpeedModifier * time;
+        transform.position = new Vector3(transform.position.x, transform.position.y, 100 * time);
+        //forwardVector = transform.forward * forwardSpeedModifier * time;
         // Debug.Log(string.Format("t{0} dt{1}",time, Time.deltaTime));
     }
 }
