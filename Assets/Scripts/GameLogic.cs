@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class GameLogic : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class GameLogic : MonoBehaviour
         {
             var newBlock = Instantiate(BlockPrefab, GetBlockPosition(block), Quaternion.identity);
             newBlock.GetComponent<Renderer>().material = block.IsGoodBlock ? GoodBlockMaterial : BadBlockMaterial;
+            if(!block.IsGoodBlock)
+                newBlock.tag = "BadBlock";
         }
 
 
