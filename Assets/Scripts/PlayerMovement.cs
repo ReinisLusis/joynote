@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (forwardVector != null)
         {
-            transform.position += forwardVector;
+            transform.position = forwardVector;
         }
 
         transform.position = new Vector3(Input.GetAxis("Horizontal") * moveaway, 
@@ -42,9 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
     internal void UpdateForwardPosition(float time)
     {
-        forwardVector = transform.forward * time + Time.deltaTime * forwardSpeedModifier;
+        forwardVector = transform.forward * forwardSpeedModifier * time;
         Debug.Log(string.Format("t{0} dt{1}",time, Time.deltaTime));
-        //transform.position.Set(transform.position.x, transform.position.y, time);
     }
 }
 
