@@ -80,9 +80,10 @@ public class GameLogic : MonoBehaviour
         var z = System.Convert.ToSingle(block.Time) * 10;
 
         // MAP
-        // C  F# D 
+        // A  D# B 
         // G  F  E
-        // A  D# B  
+        // C  F# D 
+
         switch (block.Note)
         {
             case 0: return new Vector3(-BlockSpacing, -BlockSpacing, z);  // C
