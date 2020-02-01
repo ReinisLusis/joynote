@@ -6,6 +6,8 @@ public class GameLogic : MonoBehaviour
 {
     public GameObject BlockPrefab;
     public int BlockSpacing = 3;
+    public Material GoodBlockMaterial;
+    public Material BadBlockMaterial;
     private TrackView trackView;
     private List<NoteBlock> blocks;
     MIDIToCSVReader refScript;
@@ -18,7 +20,8 @@ public class GameLogic : MonoBehaviour
         Debug.Log(blocks.Count);
         foreach (var block in blocks)
         {
-            Instantiate(BlockPrefab, GetBlockPosition(block), Quaternion.identity);
+            var newBlock = Instantiate(BlockPrefab, GetBlockPosition(block), Quaternion.identity);
+            newBlock.GetComponent<Renderer>().material = block.Type == 1 ? GoodBlockMaterial : BadBlockMaterial;
         }
     }
 
@@ -29,7 +32,7 @@ public class GameLogic : MonoBehaviour
         //   c d 
         // b   e 
         // a g f
-Debug.Log("pos " + block.Position + " time " + block.Time);
+        Debug.Log(string.Format("pos {0}, time {1}, type {2}", block.Position, block.Time, block.Type));
         int y = 0;
         int x = 0;
         var blockPosition = block.Position % 7;

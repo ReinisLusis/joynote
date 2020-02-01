@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        transform.position += transform.forward * Time.deltaTime * forwardspeed;
+        var forwardVector = transform.forward * Time.deltaTime * forwardspeed;
+        transform.position += forwardVector;
         transform.position = new Vector3(Input.GetAxis("Horizontal") * moveaway, -Input.GetAxis("Vertical") * moveaway, transform.position.z);
 
         float tiltAroundZ = -Input.GetAxis("Horizontal") * moveaway;
