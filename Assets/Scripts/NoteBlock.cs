@@ -6,7 +6,7 @@ public class NoteBlock
 
     public int Octave { get; set; }
 
-    public bool IsGoodBlock { get { return Octave == 2; } }
+    public bool IsGoodBlock { get { return Octave == 3; } }
 
     public string NoteName { get { return noteNames[Note]; } }
 
