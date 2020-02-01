@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 public class MIDIToCSVReader : MonoBehaviour
 {
     public TextAsset textAsset;
-    private ArrayList timeOccupied = new ArrayList(); // occupied event times
     private List<NoteBlock> blocks;
     // Start is called before the first frame update
     void Start()
@@ -41,36 +40,30 @@ public class MIDIToCSVReader : MonoBehaviour
             int velocityVal = 0;
             int.TryParse(values[5], out velocityVal);
 
-            if (
-                // Check if event time is already occupied
-                !timeOccupied.Contains(timeVal)
-
-                // Only note_on_c; FIXME: returns
-                && eventVal == "Note_on_c"
-
-            // velocity above 0 means it has a volume
-            //&& velocityVal > 30
-            )
+            if (eventVal == "Note_on_c")
             {
-                timeOccupied.Add(timeVal);
+                // note
+                // C  C# D  D# E  F  F# G  G# A  A# B
+                // 0  1  2  3  4  5  6  7  8  9  10 11
 
-                //TODO: NoteBlocks
+                // 41 = F, C2 -> 36
+                // middle / neutral - F
 
-                if (positionVal < 47)
+                // C2 octave - good blocks
+
+                int note = positionVal % 12;
+                int octave = positionVal / 12;
+
+
+                Debug.Log(string.Format("note {0} @ {1}", positionVal, timeVal));
+
+                var noteBlock = new NoteBlock()
                 {
-                    //TODO: Good blocks
-                    var noteBlock = new NoteBlock()
-                    {
-                        Time = timeVal / 192, // event time
-                        Position = positionVal, // Channel
-                        Type = positionVal % 4 == 0 ? 0 : 1 // Note tone
-                    };
-                    blocks.Add(noteBlock);
-                }
-                else
-                {
-                    //TODO: Bad blocks
-                }
+                    Time = timeVal / 192.0, // event time 10 == 1 sec
+                    Note = note,
+                    Octave = octave,
+                };
+                blocks.Add(noteBlock);
             }
         }
     }

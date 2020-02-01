@@ -24,7 +24,7 @@ public class AudioManager : MonoBehaviour
 
 	public float GetAudioTime()
 	{
-		return goodTrack.timeSamples / goodTrack.clip.frequency;
+		return (float)goodTrack.timeSamples / (float)goodTrack.clip.frequency;
 	}
 
 	void OnGUI()
