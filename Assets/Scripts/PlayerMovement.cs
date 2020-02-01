@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float forwardspeed;
     public float smooth = 5.0f;
     public float moveaway = 1.5f;
-
+    
     void Update()
     {
         var forwardVector = transform.forward * Time.deltaTime * forwardspeed;
