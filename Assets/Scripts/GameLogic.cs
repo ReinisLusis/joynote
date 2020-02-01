@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameLogic : MonoBehaviour
 {
@@ -12,9 +13,18 @@ public class GameLogic : MonoBehaviour
     private List<NoteBlock> blocks;
     MIDIToCSVReader refScript;
 
+    DateTime startTime;
+    DateTime audioTime;
+    bool hasStartedAudio;
+
     void Start()
     {
         refScript = GetComponent<MIDIToCSVReader>();
+
+        startTime = DateTime.UtcNow;
+        audioTime = startTime + TimeSpan.FromSeconds(3);
+        hasStartedAudio = false;
+
         // trackView = new TrackView();
         blocks = refScript.GetBlocks();
         Debug.Log(blocks.Count);
@@ -22,6 +32,30 @@ public class GameLogic : MonoBehaviour
         {
             var newBlock = Instantiate(BlockPrefab, GetBlockPosition(block), Quaternion.identity);
             newBlock.GetComponent<Renderer>().material = block.Type == 1 ? GoodBlockMaterial : BadBlockMaterial;
+        }
+    }
+
+    public double GetGameTime()
+    {
+        if (!hasStartedAudio)
+        {
+            var time = DateTime.UtcNow;
+            if (time < audioTime)
+            {
+                return (time - audioTime).TotalSeconds;
+            }
+            else
+            {
+                hasStartedAudio = true;
+                var audioManager = GetComponent<AudioManager>();
+                audioManager.StartAudio();
+                return 0.0;
+            }
+        }
+        else
+        {
+            var audioManager = GetComponent<AudioManager>();
+            return audioManager.GetAudioTime();
         }
     }
 
@@ -63,4 +97,5 @@ public class GameLogic : MonoBehaviour
     {
 
     }
+
 }

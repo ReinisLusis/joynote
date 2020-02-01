@@ -13,7 +13,18 @@ public class AudioManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+		badTrack.timeSamples = goodTrack.timeSamples;
 
+	}
+
+	public void StartAudio()
+	{
+		goodTrack.Play();
+	}
+
+	public double GetAudioTime()
+	{
+		return goodTrack.timeSamples / goodTrack.clip.frequency;
 	}
 
 	void OnGUI()
