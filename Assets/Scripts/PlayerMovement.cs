@@ -7,14 +7,19 @@ public class PlayerMovement : MonoBehaviour
 {
     public float movespeed = 10;
 
-    public float forwardspeed;
+    public float forwardSpeedModifier = 1;
     public float smooth = 5.0f;
     public float moveaway = 1.5f;
+
+    private Vector3 forwardVector;
     
     void Update()
     {
-        var forwardVector = transform.forward * Time.deltaTime * forwardspeed;
-        transform.position += forwardVector;
+        if (forwardVector != null)
+        {
+            transform.position += forwardVector;
+        }
+
         transform.position = new Vector3(Input.GetAxis("Horizontal") * moveaway, 
             -Input.GetAxis("Vertical") * moveaway, transform.position.z);
 
@@ -37,8 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     internal void UpdateForwardPosition(float time)
     {
-        var forwardVector = transform.forward * time * Time.deltaTime;
-        transform.position += forwardVector;
+        forwardVector = transform.forward * time + Time.deltaTime * forwardSpeedModifier;
         Debug.Log(string.Format("t{0} dt{1}",time, Time.deltaTime));
         //transform.position.Set(transform.position.x, transform.position.y, time);
     }

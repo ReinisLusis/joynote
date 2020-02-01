@@ -517,7 +517,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 277c636bc0f1c6d4db041693c9f7c2ea, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ce61b36ce06b77a4bbf0d357e12855ff, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -705,13 +705,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421153631}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5452ee63c51066d44a1ff7b93c5da025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   movespeed: 14
-  forwardspeed: 80
+  forwardSpeedModifier: 1
   smooth: 5
   moveaway: 4.5
 --- !u!54 &1421153637
@@ -766,7 +766,7 @@ MonoBehaviour:
   BlockSpacing: 3
   GoodBlockMaterial: {fileID: 0}
   BadBlockMaterial: {fileID: 0}
-  Player: {fileID: 1421153631}
+  PlayerGameObject: {fileID: 1421153631}
 --- !u!4 &2067997271
 Transform:
   m_ObjectHideFlags: 0
