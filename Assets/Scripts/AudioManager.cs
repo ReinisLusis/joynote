@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
 
 	public void StartAudio()
 	{
-        goodTrack.time = 19.0f;
+        goodTrack.time = 35.0f;
 
         goodTrack.Play();
 
