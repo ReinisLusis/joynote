@@ -21,12 +21,15 @@ public class GameLogic : MonoBehaviour
     private bool hasStartedAudio;
     private AudioManager audioManager;
     private PlayerMovement playerMovement;
+    private UIManager uiManager;
+
     void Start()
     {
         refScript = GetComponent<MIDIToCSVReader>();
         audioManager = GetComponent<AudioManager>();
         playerMovement = PlayerGameObject.GetComponent<PlayerMovement>();
-
+        uiManager = GetComponent<UIManager>();
+        
         startTime = DateTime.UtcNow;
         audioTime = startTime + TimeSpan.FromSeconds(3);
         hasStartedAudio = false;
@@ -70,7 +73,10 @@ public class GameLogic : MonoBehaviour
             var time = DateTime.UtcNow;
             if (time < audioTime)
             {
-                return Convert.ToSingle((time - audioTime).TotalSeconds);
+                var result = Convert.ToSingle((time - audioTime).TotalSeconds);
+                uiManager.UpdateCountDown(result);
+                Debug.Log(result);
+                return result;
             }
             else
             {
