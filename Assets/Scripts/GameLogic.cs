@@ -30,8 +30,6 @@ public class GameLogic : MonoBehaviour
         playerMovement = PlayerGameObject.GetComponent<PlayerMovement>();
         uiManager = GetComponent<UIManager>();
         
-        startTime = DateTime.UtcNow;
-        audioTime = startTime + TimeSpan.FromSeconds(3);
         hasStartedAudio = false;
 
         foreach (var block in refScript.GetBlocks())
@@ -61,8 +59,20 @@ public class GameLogic : MonoBehaviour
     }
 
     private float prevTime = 0;
+    private bool started = false;
     void Update()
     {
+        if (Input.GetKeyDown("space"))
+        {
+            startTime = DateTime.UtcNow;
+            audioTime = startTime + TimeSpan.FromSeconds(3);
+            started = true;
+        }
+        while (!started)
+        {
+            return;
+        }
+
         var time = GetGameTime();
         if (time != prevTime)
         {
