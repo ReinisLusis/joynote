@@ -462,13 +462,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.050921734, y: -0.031324413, z: -0.012113847, w: 0.9981378}
-  m_LocalPosition: {x: 3.45, y: 6.86, z: -11.12}
+  m_LocalRotation: {x: 0.034898166, y: -0.008721149, z: 0.00030454918, w: 0.9993528}
+  m_LocalPosition: {x: 10, y: 10, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 5.7910004, y: -3.6750002, z: -1.577}
+  m_LocalEulerAnglesHint: {x: 4, y: -1, z: 0}
 --- !u!114 &534669906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1421153635}
-  offset: {x: 22, y: 17, z: -130}
+  offset: {x: 7, y: 10, z: -130}
   smoothtime: 0.5
   minzoom: 40
   maxzoom: 10
@@ -1301,7 +1301,7 @@ MonoBehaviour:
     type: 3}
   GroundPrefab: {fileID: 8355029799167255478, guid: a27d235d3ca16494386cfe7411641744,
     type: 3}
-  BlockSpacing: 3
+  BlockSpacing: 4
   GoodBlockMaterial: {fileID: 2100000, guid: fe359b0b2a101974f8e7802baf3ca527, type: 2}
   BadBlockMaterial: {fileID: 2100000, guid: 6a8d7d2be2d324b48a1ec900900946c0, type: 2}
   PlayerGameObject: {fileID: 1421153631}
