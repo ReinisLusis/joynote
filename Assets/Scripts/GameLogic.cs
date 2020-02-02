@@ -45,7 +45,6 @@ public class GameLogic : MonoBehaviour
             newBlock.tag = block.IsGoodBlock ? "Block" : "BadBlock";
         }
 
-
         for (var i = 0; i < 30; i++)
         {
             Instantiate(GroundPrefab, new Vector3(0, -10, i * 1200), Quaternion.Euler(-90, 90, 0));
