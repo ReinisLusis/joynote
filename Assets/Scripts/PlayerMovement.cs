@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float forwardSpeedModifier = 1;
     public float smooth = 5.0f;
-    public float moveaway = 1.5f;
+    public float moveaway = 2f;
     public GameObject GameRoot;
 
     private UIManager uiManager;

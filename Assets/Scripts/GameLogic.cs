@@ -8,7 +8,7 @@ public class GameLogic : MonoBehaviour
 {
     public GameObject BlockPrefab;
     public GameObject GroundPrefab;
-    public int BlockSpacing = 3;
+    public int BlockSpacing = 4;
     public Material GoodBlockMaterial;
     public Material BadBlockMaterial;
     public GameObject PlayerGameObject;
