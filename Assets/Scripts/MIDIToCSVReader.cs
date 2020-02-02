@@ -55,7 +55,7 @@ public class MIDIToCSVReader : MonoBehaviour
                 int octave = positionVal / 12;
 
 
-                Debug.Log(string.Format("note {0} @ {1}", positionVal, timeVal));
+                // Debug.Log(string.Format("note {0} @ {1}", positionVal, timeVal));
 
                 var noteBlock = new NoteBlock()
                 {

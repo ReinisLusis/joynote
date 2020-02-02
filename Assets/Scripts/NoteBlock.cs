@@ -1,4 +1,6 @@
-public class NoteBlock
+using UnityEngine;
+
+public class NoteBlock : MonoBehaviour
 {
     public double Time { get; set; }
 

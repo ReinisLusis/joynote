@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private UIManager uiManager;
     private Vector3 forwardVector;
 
+    public GameObject FireworksAll;
+
     void Update()
     {
         uiManager = GameRoot.GetComponent<UIManager>();
@@ -37,11 +39,24 @@ public class PlayerMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+        GameObject firework = Instantiate(FireworksAll, other.transform.position, Quaternion.identity);
+        firework.GetComponent<ParticleSystem>().Play();
+
         if (uiManager)
         {
-            uiManager.UpdateScore(other.gameObject.tag == "Block");
+            var block = other.gameObject.GetComponent<NoteBlock>();
+            if (block != null)
+            {
+                uiManager.UpdateScore(block.IsGoodBlock);
+
+                var audioManager = GameRoot.GetComponent<AudioManager>();
+                if (audioManager != null)
+                {
+                    audioManager.BlockHit(block);
+                }
+            }
         }
+        Destroy(other.gameObject);
     }
 
     internal void UpdateForwardPosition(float time)

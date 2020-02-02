@@ -37,8 +37,14 @@ public class GameLogic : MonoBehaviour
         {
             var newBlock = Instantiate(BlockPrefab, GetBlockPosition(block), Quaternion.identity);
             newBlock.GetComponent<Renderer>().material = block.IsGoodBlock ? GoodBlockMaterial : BadBlockMaterial;
-            if(!block.IsGoodBlock)
-                newBlock.tag = "BadBlock";
+
+            newBlock.AddComponent<NoteBlock>();
+            var cBlock = newBlock.GetComponent<NoteBlock>();
+            cBlock.Time = block.Time;
+            cBlock.Note = block.Note;
+            cBlock.Octave = block.Octave;
+
+            newBlock.tag = block.IsGoodBlock ? "Block" : "BadBlock";
         }
 
 
@@ -78,7 +84,7 @@ public class GameLogic : MonoBehaviour
 
     private Vector3 GetBlockPosition(NoteBlock block)
     {
-        Debug.Log(string.Format("time {0:0.000}, octave {1}, note {2}", block.Time / 10.0, block.Octave, block.NoteName));
+        // Debug.Log(string.Format("time {0:0.000}, octave {1}, note {2}", block.Time / 10.0, block.Octave, block.NoteName));
 
         var z = System.Convert.ToSingle(block.Time) * 10;
 

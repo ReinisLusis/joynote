@@ -9,12 +9,11 @@ public class AudioManager : MonoBehaviour
 	public AudioSource badTrack;
 	//public float badTrackOffset;
 	public float balance;
-	
+
 	// Start is called before the first frame update
 	void Start()
     {
-		badTrack.timeSamples = goodTrack.timeSamples;
-
+		
 	}
 
 	public void StartAudio()
@@ -35,10 +34,23 @@ public class AudioManager : MonoBehaviour
 		//balance = EditorGUILayout.Slider(balance, 0, 1);
 	}
 
+    public void BlockHit(NoteBlock block)
+    {
+        if (!block.IsGoodBlock)
+        {
+            balance = 0;
+        }
+    }
+
 	// Update is called once per frame
 	void Update()
     {
-		goodTrack.volume = balance;
+        badTrack.timeSamples = goodTrack.timeSamples;
+
+        goodTrack.volume = balance;
 		badTrack.volume = 1 - balance;
+
+        // restore balance to 1 in 1 second
+        balance = System.Math.Min(1.0f, balance + Time.deltaTime);
 	}
 }
