@@ -7,11 +7,11 @@ using System.Text.RegularExpressions;
 public class MIDIToCSVReader : MonoBehaviour
 {
     public TextAsset textAsset;
-    private List<NoteBlock> blocks;
+    private List<NoteBlockRaw> blocks;
     // Start is called before the first frame update
     void Start()
     {
-        blocks = new List<NoteBlock>();
+        blocks = new List<NoteBlockRaw>();
         string fs = textAsset.text;
         string[] fLines = Regex.Split(fs, "\n|\r|\r\n");
 
@@ -57,7 +57,7 @@ public class MIDIToCSVReader : MonoBehaviour
 
                 // Debug.Log(string.Format("note {0} @ {1}", positionVal, timeVal));
 
-                var noteBlock = new NoteBlock()
+                var noteBlock = new NoteBlockRaw()
                 {
                     Time = timeVal / 192.0, // event time 10 == 1 sec
                     Note = note,
@@ -68,7 +68,7 @@ public class MIDIToCSVReader : MonoBehaviour
         }
     }
 
-    public List<NoteBlock> GetBlocks()
+    public List<NoteBlockRaw> GetBlocks()
     {
         return blocks;
     }
