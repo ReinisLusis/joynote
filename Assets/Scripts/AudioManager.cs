@@ -7,21 +7,33 @@ public class AudioManager : MonoBehaviour
 {
 	public AudioSource goodTrack;
 	public AudioSource badTrack;
+    public AudioSource hitTrack;
+
 	//public float badTrackOffset;
 	public float balance;
+    public float hitVolume;
+    float hitDuration = 1.0f / 16;
 
-	// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+    void Start()
     {
 		
 	}
 
 	public void StartAudio()
 	{
-		goodTrack.Play();
-		if (badTrack.clip) {
+        goodTrack.time = 19.0f;
+
+        goodTrack.Play();
+
+        if (badTrack.clip) {
 			badTrack.Play();
 		}
+
+        if (hitTrack.clip)
+        {
+            hitTrack.Play();
+        }
 	}
 
 	public float GetAudioTime()
@@ -40,17 +52,26 @@ public class AudioManager : MonoBehaviour
         {
             balance = 0;
         }
+        else
+        {
+            hitVolume = 2.0f;
+        }
     }
 
 	// Update is called once per frame
 	void Update()
     {
         badTrack.timeSamples = goodTrack.timeSamples;
+        hitTrack.timeSamples = goodTrack.timeSamples;
 
         goodTrack.volume = balance;
 		badTrack.volume = 1 - balance;
+        hitTrack.volume = hitVolume > 0 ? 1.0f : 0.0f; 
 
         // restore balance to 1 in 1 second
         balance = System.Math.Min(1.0f, balance + Time.deltaTime);
-	}
+
+        // fade out hit track
+        hitVolume = System.Math.Max(0.0f, hitVolume - Time.deltaTime / hitDuration);
+    }
 }
