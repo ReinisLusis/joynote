@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     {
         forwardVector = transform.forward;
         uiManager = GameRoot.GetComponent<UIManager>();
+
+        //var colider1 = transform.Find("Colider1").GetComponent<BoxCollider>();
+        //colider1.na
     }
     void Update()
     {
@@ -43,23 +46,44 @@ public class PlayerMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        var block = other.gameObject.GetComponent<NoteBlock>();
+
+        if (block == null || uiManager == null)
+            return;
+
+        var distance = other.transform.position.z - transform.position.z;
+        if (Math.Abs(distance) > 1)
+        {
+            var color = other.GetComponent<MeshRenderer>().material.color;
+            if (distance > 90)
+            {
+                color = new Color(color.r, color.g, color.b, 0.8f);
+            }
+            else if (distance > 45)
+            {
+                color = new Color(color.r, color.g, color.b, 0.5f);
+            }
+            else if (distance < -5)
+            {
+                color = new Color(color.r, color.g, color.b, 0.05f);
+            }
+
+            other.GetComponent<MeshRenderer>().material.color = color;
+
+            return;
+        }
+
         GameObject firework = Instantiate(FireworksAll, other.transform.position, Quaternion.identity);
         firework.GetComponent<ParticleSystem>().Play();
 
-        if (uiManager)
-        {
-            var block = other.gameObject.GetComponent<NoteBlock>();
-            if (block != null)
-            {
-                uiManager.UpdateScore(block.IsGoodBlock);
+        uiManager.UpdateScore(block.IsGoodBlock);
 
-                var audioManager = GameRoot.GetComponent<AudioManager>();
-                if (audioManager != null)
-                {
-                    audioManager.BlockHit(block);
-                }
-            }
+        var audioManager = GameRoot.GetComponent<AudioManager>();
+        if (audioManager != null)
+        {
+            audioManager.BlockHit(block);
         }
+
         Destroy(other.gameObject);
     }
 

@@ -46,6 +46,11 @@ public class GameLogic : MonoBehaviour
             cBlock.Octave = block.Octave;
 
             newBlock.tag = block.IsGoodBlock ? "Block" : "BadBlock";
+
+            if (!block.IsGoodBlock)
+            {
+                newBlock.transform.localScale = new Vector3(3, 3, 3);
+            }
         }
 
 
