@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
 	public void StartAudio()
 	{
 		goodTrack.Play();
+		badTrack.Play();
 	}
 
 	public float GetAudioTime()
