@@ -17,9 +17,13 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject FireworksAll;
 
+    private void Start()
+    {
+        forwardVector = transform.forward;
+        uiManager = GameRoot.GetComponent<UIManager>();
+    }
     void Update()
     {
-        uiManager = GameRoot.GetComponent<UIManager>();
 
         if (forwardVector != null)
         {
@@ -61,9 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     internal void UpdateForwardPosition(float time)
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, 100 * time);
-        //forwardVector = transform.forward * forwardSpeedModifier * time;
-        // Debug.Log(string.Format("t{0} dt{1}",time, Time.deltaTime));
+        forwardVector = transform.forward * 100 * time;
     }
 }
 

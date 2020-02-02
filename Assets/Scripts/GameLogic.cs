@@ -45,16 +45,22 @@ public class GameLogic : MonoBehaviour
             newBlock.tag = block.IsGoodBlock ? "Block" : "BadBlock";
         }
 
+
         for (var i = 0; i < 30; i++)
         {
             Instantiate(GroundPrefab, new Vector3(0, -10, i * 1200), Quaternion.Euler(-90, 90, 0));
         }
     }
 
+    private float prevTime = 0;
     void Update()
     {
         var time = GetGameTime();
-        playerMovement.UpdateForwardPosition(time);
+        if (time != prevTime)
+        {
+            playerMovement.UpdateForwardPosition(time);
+            prevTime = time;
+        }
     }
 
     public float GetGameTime()
