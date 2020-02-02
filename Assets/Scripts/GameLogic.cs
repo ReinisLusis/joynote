@@ -31,9 +31,7 @@ public class GameLogic : MonoBehaviour
         audioTime = startTime + TimeSpan.FromSeconds(3);
         hasStartedAudio = false;
 
-        blocks = refScript.GetBlocks();
-
-        foreach (var block in blocks)
+        foreach (var block in refScript.GetBlocks())
         {
             var newBlock = Instantiate(BlockPrefab, GetBlockPosition(block), Quaternion.identity);
             newBlock.GetComponent<Renderer>().material = block.IsGoodBlock ? GoodBlockMaterial : BadBlockMaterial;
@@ -81,7 +79,7 @@ public class GameLogic : MonoBehaviour
         }
     }
 
-    private Vector3 GetBlockPosition(NoteBlock block)
+    private Vector3 GetBlockPosition(NoteBlockRaw block)
     {
         // Debug.Log(string.Format("time {0:0.000}, octave {1}, note {2}", block.Time / 10.0, block.Octave, block.NoteName));
 
